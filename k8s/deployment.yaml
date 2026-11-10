@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trend-app
+  namespace: trend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trend-app
+  template:
+    metadata:
+      labels:
+        app: trend-app
+    spec:
+      containers:
+        - name: trend-app
+          image: nivi99/trend-app:v1
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 96Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trend-service
+  namespace: trend
+spec:
+  type: ClusterIP
+  selector:
+    app: trend-app
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
