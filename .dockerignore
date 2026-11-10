@@ -1,0 +1,11 @@
+.git
+.gitignore
+.terraform
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.pem
+*.key
+.env
+.env.*
+node_modules
